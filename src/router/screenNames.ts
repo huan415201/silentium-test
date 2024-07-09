@@ -1,2 +1,2 @@
-export const StoryListScreenName = 'StoryListScreenName'
-export const StoryDetailScreenName = 'StoryDetailScreenName'
+export const StoryListScreenName = 'StoryListScreenName';
+export const StoryDetailScreenName = 'StoryDetailScreenName';

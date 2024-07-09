@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { ScreenWrapper } from '../../layout';
 
 const StoryListScreenView = () => (
-  <View>
+  <ScreenWrapper>
     <Text>StoryListScreen</Text>
-  </View>
+  </ScreenWrapper>
 );
 
 export default StoryListScreenView;
