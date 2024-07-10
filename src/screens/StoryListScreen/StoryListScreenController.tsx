@@ -1,22 +1,50 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { getStoryListResponse, getStoryListURL } from '../../apis';
+import {
+  getBestStoryListURL,
+  getNewStoryListURL,
+  getStoryListResponse,
+  getTopStoryListURL,
+} from '../../apis';
 import { useAppToast } from '../../hooks/useAppToast';
 import { NavigationProps } from '../../router';
 import StoryListScreenView from './StoryListScreenView';
+import { FILTER_KEYS } from './types';
 
 const StoryListScreenController = () => {
   const { toastError } = useAppToast();
-  const [data, setData] = useState<getStoryListResponse>([]);
   const navigation = useNavigation<NavigationProps>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [newData, setNewData] = useState<getStoryListResponse>([]);
+  const [topData, setTopData] = useState<getStoryListResponse>([]);
+  const [bestData, setBestData] = useState<getStoryListResponse>([]);
+  const [filterType, setFilterType] = useState<FILTER_KEYS>(FILTER_KEYS.new);
 
   const getData = async () => {
     try {
       setLoading(true);
-      const rawRes = await fetch(getStoryListURL);
+      let url = getNewStoryListURL;
+      let setter = setNewData;
+      switch (filterType) {
+        case FILTER_KEYS.new:
+          if (newData.length) return;
+          url = getNewStoryListURL;
+          setter = setNewData;
+          break;
+        case FILTER_KEYS.top:
+          if (topData.length) return;
+          url = getTopStoryListURL;
+          setter = setTopData;
+          break;
+        case FILTER_KEYS.best:
+          if (bestData.length) return;
+          url = getBestStoryListURL;
+          setter = setBestData;
+          break;
+      }
+      const rawRes = await fetch(url);
       const res = await rawRes.json();
-      setData(res);
+      setter(res);
     } catch (error) {
       toastError(JSON.stringify(error));
     } finally {
@@ -25,15 +53,23 @@ const StoryListScreenController = () => {
   };
 
   useEffect(() => {
-    if (!data.length) getData();
-  }, [data]);
+    getData();
+  }, [filterType]);
 
   return (
     <StoryListScreenView
-      data={data}
+      data={
+        filterType === FILTER_KEYS.new
+          ? newData
+          : filterType === FILTER_KEYS.top
+          ? topData
+          : bestData
+      }
       loading={loading}
       onRefresh={getData}
       navigation={navigation}
+      filter={filterType}
+      setFilter={setFilterType}
     />
   );
 };
