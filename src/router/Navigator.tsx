@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigationProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { useAppDispatch } from '../hooks';
@@ -10,6 +10,14 @@ type ScreenParamList = {
   StoryListScreenName: undefined;
   StoryDetailScreenName: undefined;
 };
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends ScreenParamList {}
+  }
+}
+
+export type NavigationProps = NavigationProp<ScreenParamList>;
 
 const Stack = createNativeStackNavigator<ScreenParamList>();
 
