@@ -26,7 +26,6 @@ const Navigator = () => {
   const dispatch = useAppDispatch();
 
   const onChangeScreen = (routeName: string) => {
-    console.log('routeName:::', routeName);
     switch (routeName) {
       case StoryListScreenName:
         dispatch(

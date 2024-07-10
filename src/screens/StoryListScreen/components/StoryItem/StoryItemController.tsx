@@ -1,13 +1,10 @@
 import { FC } from 'react';
-import {
-  getStoryDetailResponse,
-  getStoryDetailURL,
-} from '../../../../apis/StoryDetail';
+import { getStoryDetailResponse, getStoryDetailURL } from '../../../../apis';
+import { useAppDispatch } from '../../../../hooks';
 import { useAppToast } from '../../../../hooks/useAppToast';
 import { NavigationProps } from '../../../../router';
-import StoryItemView from './StoryItemView';
-import { useAppDispatch } from '../../../../hooks';
 import { setGlobalLoadingAction } from '../../../../states/reducers';
+import StoryItemView from './StoryItemView';
 
 type StoryItemControllerProps = {
   item: number;
