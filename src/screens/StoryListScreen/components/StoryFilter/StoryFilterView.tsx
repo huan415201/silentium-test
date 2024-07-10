@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   filterWrapper: {
     flexDirection: 'row',
     paddingHorizontal: 16,
-    marginBottom: 16,
+    paddingVertical: 2,
+    marginBottom: 12,
   },
   filterBtn: {
     flex: 1,
