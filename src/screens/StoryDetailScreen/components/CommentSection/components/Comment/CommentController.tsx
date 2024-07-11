@@ -8,8 +8,10 @@ const CommentController = ({
   id: number;
   htmlWidth: number;
 }) => {
-  const data = useCommentDetail(id);
-  return <CommentView data={data} htmlWidth={htmlWidth} />;
+  const { detail: data, isLoading } = useCommentDetail(id);
+  return (
+    <CommentView data={data} htmlWidth={htmlWidth} isLoading={isLoading} />
+  );
 };
 
 export default CommentController;

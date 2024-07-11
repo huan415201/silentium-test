@@ -4,10 +4,12 @@ import { useAppToast } from '../useAppToast';
 
 const useCommentDetail = (id: number) => {
   const [detail, setDetail] = useState<getStoryDetailResponse>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toastError } = useAppToast();
 
   const getData = async () => {
     try {
+      setIsLoading(true);
       const rawRes = await fetch(getStoryDetailURL(id));
       const res: getStoryDetailResponse = await rawRes.json();
       if (res) {
@@ -17,6 +19,8 @@ const useCommentDetail = (id: number) => {
       }
     } catch (error) {
       toastError(JSON.stringify(error));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -24,7 +28,7 @@ const useCommentDetail = (id: number) => {
     getData();
   }, [id]);
 
-  return detail;
+  return { detail, isLoading };
 };
 
 export default useCommentDetail;
