@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { RefObject } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { getStoryListResponse } from '../../apis';
 import { ScreenWrapper } from '../../layout';
@@ -12,7 +12,8 @@ type StoryListScreenViewProps = {
   onRefresh: () => void;
   navigation: NavigationProps;
   filter: FILTER_KEYS;
-  setFilter: Dispatch<React.SetStateAction<FILTER_KEYS>>;
+  setFilter: (value: FILTER_KEYS) => void;
+  listRef: RefObject<FlatList<any>>;
 };
 
 const StoryListScreenView = ({
@@ -22,6 +23,7 @@ const StoryListScreenView = ({
   navigation,
   filter,
   setFilter,
+  listRef,
 }: StoryListScreenViewProps) => (
   <ScreenWrapper>
     <StoryFilter filter={filter} setFilter={setFilter} />
@@ -37,6 +39,7 @@ const StoryListScreenView = ({
       refreshing={loading}
       initialNumToRender={12}
       maxToRenderPerBatch={12}
+      ref={listRef}
     />
   </ScreenWrapper>
 );
