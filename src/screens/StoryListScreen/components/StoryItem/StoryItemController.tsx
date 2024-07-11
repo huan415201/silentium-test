@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { getStoryDetailResponse, getStoryDetailURL } from '../../../../apis';
-import { useAppDispatch } from '../../../../hooks';
-import { useAppToast } from '../../../../hooks/useAppToast';
+import { useAppDispatch, useAppToast } from '../../../../hooks';
 import { NavigationProps } from '../../../../router';
 import { setGlobalLoadingAction } from '../../../../states/reducers';
 import StoryItemView from './StoryItemView';
@@ -28,7 +27,7 @@ const StoryItemController: FC<StoryItemControllerProps> = ({
       if (res) {
         navigation.navigate('StoryDetailScreenName', res);
       } else {
-        toastError(`Story ${item} is not exist`);
+        toastError(`Story ${item} does not exist`);
       }
     } catch (error) {
       toastError(JSON.stringify(error));

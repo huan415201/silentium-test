@@ -1,3 +1,4 @@
+import { useWindowDimensions } from 'react-native';
 import { getStoryDetailResponse } from '../../apis/StoryDetail';
 import StoryDetailScreenView from './StoryDetailScreenView';
 
@@ -6,7 +7,8 @@ const StoryDetailScreenController = ({
 }: {
   route: { params: getStoryDetailResponse };
 }) => {
-  return <StoryDetailScreenView data={route.params} />;
+  const { width } = useWindowDimensions();
+  return <StoryDetailScreenView data={route.params} htmlWidth={width} />;
 };
 
 export default StoryDetailScreenController;

@@ -1,7 +1,13 @@
 import CommentSectionView from './CommentSectionView';
 
-const CommentSectionController = ({ data }: { data: number[] }) => {
-  return <CommentSectionView data={data} />;
+const CommentSectionController = ({
+  ids,
+  htmlWidth,
+}: {
+  ids: number[];
+  htmlWidth: number;
+}) => {
+  return <CommentSectionView ids={ids} htmlWidth={htmlWidth} />;
 };
 
 export default CommentSectionController;

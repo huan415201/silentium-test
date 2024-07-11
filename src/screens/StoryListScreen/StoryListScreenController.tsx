@@ -6,7 +6,7 @@ import {
   getStoryListResponse,
   getTopStoryListURL,
 } from '../../apis';
-import { useAppToast } from '../../hooks/useAppToast';
+import { useAppToast } from '../../hooks';
 import { NavigationProps } from '../../router';
 import StoryListScreenView from './StoryListScreenView';
 import { FILTER_KEYS } from './types';

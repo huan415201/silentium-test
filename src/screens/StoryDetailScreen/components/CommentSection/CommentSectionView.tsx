@@ -1,8 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Comment } from './components';
 
-const CommentSectionView = ({ data }: { data: number[] }) => (
+const CommentSectionView = ({
+  ids,
+  htmlWidth,
+}: {
+  ids: number[];
+  htmlWidth: number;
+}) => (
   <View style={styles.container}>
     <Text style={styles.title}>Comments</Text>
+    {ids?.length > 0 ? (
+      <FlatList
+        scrollEnabled={false}
+        data={ids}
+        renderItem={({ item }: { item: number }) => (
+          <Comment id={item} htmlWidth={htmlWidth} />
+        )}
+        keyExtractor={item => `${item}`}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+      />
+    ) : (
+      <Text>No comment</Text>
+    )}
   </View>
 );
 
@@ -11,9 +33,12 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: 'bold',
     marginBottom: 16,
+  },
+  separator: {
+    height: 20,
   },
 });
 
