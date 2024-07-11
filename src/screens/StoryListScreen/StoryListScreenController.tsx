@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FlatList } from 'react-native';
 import {
   getBestStoryListURL,
   getNewStoryListURL,
@@ -13,6 +14,7 @@ import { FILTER_KEYS } from './types';
 
 const StoryListScreenController = () => {
   const { toastError } = useAppToast();
+  const listRef = useRef<FlatList>(null);
   const navigation = useNavigation<NavigationProps>();
   const [loading, setLoading] = useState<boolean>(false);
   const [newData, setNewData] = useState<getStoryListResponse>([]);
@@ -52,6 +54,13 @@ const StoryListScreenController = () => {
     }
   };
 
+  const handleSetFilterType = (value: FILTER_KEYS) => {
+    setFilterType(value);
+    if (listRef.current) {
+      listRef.current.scrollToOffset({ animated: true, offset: 0 });
+    }
+  };
+
   useEffect(() => {
     getData();
   }, [filterType]);
@@ -69,7 +78,8 @@ const StoryListScreenController = () => {
       onRefresh={getData}
       navigation={navigation}
       filter={filterType}
-      setFilter={setFilterType}
+      setFilter={handleSetFilterType}
+      listRef={listRef}
     />
   );
 };
