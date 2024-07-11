@@ -25,7 +25,7 @@ const StoryDetailScreenView = ({
       <Text style={styles.author}>{`Author: ${data.by}`}</Text>
       <View style={styles.contentWrapper}>
         {data?.text ? (
-          <HTML contentWidth={htmlWidth || 0} source={{ html: data.text }} />
+          <HTML contentWidth={htmlWidth} source={{ html: data.text }} />
         ) : (
           <Text style={styles.content}>{dummyText}</Text>
         )}

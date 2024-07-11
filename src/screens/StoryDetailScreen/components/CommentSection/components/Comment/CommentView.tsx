@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import HTML from 'react-native-render-html';
 import { getStoryDetailResponse } from '../../../../../../apis';
 import { colors } from '../../../../../../utils';
@@ -8,9 +8,11 @@ import { Reply } from './components';
 const CommentView = ({
   data,
   htmlWidth,
+  isLoading,
 }: {
   data?: getStoryDetailResponse;
   htmlWidth: number;
+  isLoading: boolean;
 }) => {
   const time = data?.time ? moment(data.time) : null;
   const timeString = time
@@ -18,6 +20,7 @@ const CommentView = ({
       ? time.fromNow()
       : time.format('DD/MM/YYYY HH:MM')
     : '';
+  if (isLoading) return <ActivityIndicator color={colors.black} />;
   return (
     <View>
       <View style={styles.info}>
@@ -37,7 +40,7 @@ const CommentView = ({
       </View>
       {data?.text ? (
         <View style={styles.contentWrapper}>
-          <HTML contentWidth={htmlWidth || 0} source={{ html: data.text }} />
+          <HTML contentWidth={htmlWidth} source={{ html: data.text }} />
         </View>
       ) : null}
       {data?.kids?.length && data.kids.length > 0 ? (
