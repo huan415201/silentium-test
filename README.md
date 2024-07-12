@@ -2,7 +2,7 @@ Firstly, I don't have a MacBook so I can only develop this app on Android.
 
 Secondly, I couldn't add testing for this project due to errors while integrating Jest. (branch: origin/testing/jest)
 
-Lastly, StoryListScreen doesn't include pagination, because I couldn't find any information about pagination in the documentation. (https://github.com/HackerNews/API#new-top-and-best-stories)
+Lastly, StoryListScreen doesn't include pagination, because I couldn't find any information about pagination in the documentation. (https://github.com/HackerNews/API#new-top-and-best-stories). I tried passing page, per_page, and limit, but none of them worked.
 
 To run the app:
 
